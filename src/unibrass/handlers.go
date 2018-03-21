@@ -24,7 +24,13 @@ func PieceIndex(w http.ResponseWriter, r *http.Request) {
 func PieceView(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	pieceId := vars["pieceId"]
-	rows, err := database.DB.Query("SELECT bands.name, title, composer, arranger, notes, pieceid FROM pieces INNER JOIN bands USING (bandid) WHERE pieceid = $1 LIMIT 1", pieceId)
+	query := `
+		SELECT bands.name, title, composer, arranger, notes, pieceid 
+		FROM pieces
+		INNER JOIN bands USING (bandid)
+		WHERE pieceid = $1
+		LIMIT 1`
+	rows, err := database.DB.Query(query, pieceId)
 	if err != nil {
 		fmt.Fprintf(w, "Fatal error: %s", err)
 		return
