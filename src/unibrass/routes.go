@@ -48,6 +48,18 @@ var routes = Routes{
 		"/piece/{pieceId}",
 		PieceView,
 	},
+        Route{
+                "PieceAdd",
+                "POST",
+                "/piece/add",
+                PieceAdd,
+        },
+	Route{
+		"PieceSearch",
+		"GET",
+		"/piece/search/byname/{pieceName}",
+		PieceSearch,
+	},
 	Route{
 		"OutView",
 		"GET",
