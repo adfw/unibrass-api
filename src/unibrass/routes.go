@@ -78,4 +78,16 @@ var routes = Routes{
 		"/out/checkout",
 		OutHandOut,
 	},
+        Route{
+                "LoanRequest",
+                "POST",
+                "/loan/request",
+                LoanSubmit,
+        },
+        Route{
+                "LoanApprove",
+                "POST",
+                "/loan/approve",
+                LoanApprove,
+        },
 }

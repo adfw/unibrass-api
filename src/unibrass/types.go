@@ -47,6 +47,15 @@ type Loan struct {
 
 type LoanList []Loan
 
+type LoanRequest struct {
+	PieceId		int		`json:"pieceid"`
+	Requestor	int		`json:"requestor"`
+}
+
+type LoanId struct{
+	LoanId	int	`json:"loanid"`
+}
+
 type Out struct {
 	OutId   int         `json:"outid"`
 	TimeOut pq.NullTime `json:"timeout"`
