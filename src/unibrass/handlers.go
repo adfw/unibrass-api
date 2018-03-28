@@ -63,24 +63,24 @@ func PieceSearch(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Fatal error: %s", err)
 		return
 	}
-        var pieceList PieceList
+	var pieceList PieceList
 	defer rows.Close()
 	for rows.Next() {
 		p := Piece{}
 		err = rows.Scan(&p.Band.BandId, &p.Band.BandName, &p.Piece.Title, &p.Piece.Composer, &p.Piece.Arranger, &p.Piece.Publisher, &p.Piece.Year, &p.Piece.Notes, &p.PieceId)
 		if err == nil {
-                        pieceList = append(pieceList, p)
+			pieceList = append(pieceList, p)
 		} else {
 			fmt.Fprintf(w, "Fatal error: %s", err)
 		}
 	}
-        w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-        w.WriteHeader(http.StatusOK)
-        json.NewEncoder(w).Encode(pieceList)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(pieceList)
 }
 
 func PieceAdd(w http.ResponseWriter, r *http.Request) {
-        var piece PieceUpdate
+	var piece PieceUpdate
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 	if err != nil {
 		panic(err)
@@ -127,7 +127,6 @@ func OutView(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-
 
 func OutHandIn(w http.ResponseWriter, r *http.Request) {
 	var outId OutInId
@@ -182,11 +181,11 @@ func OutHandOut(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoanSubmit(w http.ResponseWriter, r *http.Request) {
-        var request LoanRequest
-        body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-        if err != nil {
-                panic(err)
-        }
+	var request LoanRequest
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
+	if err != nil {
+		panic(err)
+	}
 	if err := r.Body.Close(); err != nil {
 		panic(err)
 	}
@@ -208,11 +207,11 @@ func LoanSubmit(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoanApprove(w http.ResponseWriter, r *http.Request) {
-        var request LoanId
-        body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-        if err != nil {
-                panic(err)
-        }
+	var request LoanId
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
+	if err != nil {
+		panic(err)
+	}
 	if err := r.Body.Close(); err != nil {
 		panic(err)
 	}

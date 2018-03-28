@@ -7,53 +7,53 @@ import (
 )
 
 type Band struct {
-	BandId		int	`json:"bandid"`
-	BandName	string	`json:"bandname"`
+	BandId   int    `json:"bandid"`
+	BandName string `json:"bandname"`
 }
 
 type SQLPiece struct {
-	Title		sql.NullString	`json:"title"`
-	Composer	sql.NullString	`json:"composer"`
-	Arranger	sql.NullString	`json:"arranger"`
-	Publisher	sql.NullString	`json:"publisher"`
-	Year		pq.NullTime	`json:"year"`
-	Notes		sql.NullString	`json:"notes"`
+	Title     sql.NullString `json:"title"`
+	Composer  sql.NullString `json:"composer"`
+	Arranger  sql.NullString `json:"arranger"`
+	Publisher sql.NullString `json:"publisher"`
+	Year      pq.NullTime    `json:"year"`
+	Notes     sql.NullString `json:"notes"`
 }
 
 type Piece struct {
-	PieceId		int		`json:"pieceid"`
-	Band		Band		`json:"band"`
-	Piece		SQLPiece	`json:"piece"`
+	PieceId int      `json:"pieceid"`
+	Band    Band     `json:"band"`
+	Piece   SQLPiece `json:"piece"`
 }
 
 type PieceUpdate struct {
-	Piece	SQLPiece	`json:"piece"`
-	BandId	int		`json:"bandid"`
+	Piece  SQLPiece `json:"piece"`
+	BandId int      `json:"bandid"`
 }
 
 type PieceList []Piece
 
 type Loan struct {
-	LoanId		int		`json:"loanid"`
-	PieceId		int		`json:"pieceid"`
-	Lender		int		`json:"lender"`
-	Requestor	int		`json:"requestor"`
-	Status		string		`json:"status"`
-	DateFrom	pq.NullTime	`json:"datefrom"`
-	DateDue		pq.NullTime	`json:"dateuntil"`
-	DateSent	pq.NullTime	`json:"datesent"`
-	DateReturned	pq.NullTime	`json:"datereturned"`
+	LoanId       int         `json:"loanid"`
+	PieceId      int         `json:"pieceid"`
+	Lender       int         `json:"lender"`
+	Requestor    int         `json:"requestor"`
+	Status       string      `json:"status"`
+	DateFrom     pq.NullTime `json:"datefrom"`
+	DateDue      pq.NullTime `json:"dateuntil"`
+	DateSent     pq.NullTime `json:"datesent"`
+	DateReturned pq.NullTime `json:"datereturned"`
 }
 
 type LoanList []Loan
 
 type LoanRequest struct {
-	PieceId		int		`json:"pieceid"`
-	Requestor	int		`json:"requestor"`
+	PieceId   int `json:"pieceid"`
+	Requestor int `json:"requestor"`
 }
 
-type LoanId struct{
-	LoanId	int	`json:"loanid"`
+type LoanId struct {
+	LoanId int `json:"loanid"`
 }
 
 type Out struct {

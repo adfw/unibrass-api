@@ -48,12 +48,12 @@ var routes = Routes{
 		"/piece/{pieceId}",
 		PieceView,
 	},
-        Route{
-                "PieceAdd",
-                "POST",
-                "/piece/add",
-                PieceAdd,
-        },
+	Route{
+		"PieceAdd",
+		"POST",
+		"/piece/add",
+		PieceAdd,
+	},
 	Route{
 		"PieceSearch",
 		"GET",
@@ -78,16 +78,16 @@ var routes = Routes{
 		"/out/checkout",
 		OutHandOut,
 	},
-        Route{
-                "LoanRequest",
-                "POST",
-                "/loan/request",
-                LoanSubmit,
-        },
-        Route{
-                "LoanApprove",
-                "POST",
-                "/loan/approve",
-                LoanApprove,
-        },
+	Route{
+		"LoanRequest",
+		"POST",
+		"/loan/request",
+		LoanSubmit,
+	},
+	Route{
+		"LoanApprove",
+		"POST",
+		"/loan/approve",
+		LoanApprove,
+	},
 }
