@@ -95,7 +95,18 @@ func PieceAdd(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-	_, dberr := database.DB.Query("INSERT INTO pieces (bandid, title, composer, arranger, publisher, year, notes, dateadded) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())", piece.BandId, piece.Piece.Title, piece.Piece.Composer, piece.Piece.Arranger, piece.Piece.Publisher, piece.Piece.Year, piece.Piece.Notes)
+	query = `INSERT INTO pieces 
+		(bandid, title, composer, arranger, publisher, year, notes, dateadded)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`
+	_, dberr := database.DB.Query(
+		query,
+		piece.BandId,
+		piece.Piece.Title,
+		piece.Piece.Composer,
+		piece.Piece.Arranger,
+		piece.Piece.Publisher,
+		piece.Piece.Year,
+		piece.Piece.Notes)
 	if dberr == nil {
 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
@@ -108,7 +119,22 @@ func PieceAdd(w http.ResponseWriter, r *http.Request) {
 func OutView(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	outId := vars["outId"]
-	rows, err := database.DB.Query("SELECT bands.bandid, bands.name, title, composer, arranger, notes, pieceid, outid, timein, timeout FROM pieces_out INNER JOIN pieces USING (pieceid) INNER JOIN bands USING (bandid) WHERE outid = $1 LIMIT 1", outId)
+	query = `SELECT bands.bandid,
+		bands.name,
+		title,
+		composer,
+		arranger,
+		notes,
+		pieceid,
+		outid,
+		timein,
+		timeout
+		FROM pieces_out
+		INNER JOIN pieces USING (pieceid)
+		INNER JOIN bands USING (bandid)
+		WHERE outid = $1
+		LIMIT 1`
+	rows, err := database.DB.Query(query, outId)
 	if err != nil {
 		fmt.Fprintf(w, "Fatal error: %s", err)
 		return
@@ -116,7 +142,17 @@ func OutView(w http.ResponseWriter, r *http.Request) {
 	defer rows.Close()
 	for rows.Next() {
 		p := Out{}
-		err = rows.Scan(&p.Piece.Band.BandId, &p.Piece.Band.BandName, &p.Piece.Piece.Title, &p.Piece.Piece.Composer, &p.Piece.Piece.Arranger, &p.Piece.Piece.Notes, &p.Piece.PieceId, &p.OutId, &p.TimeIn, &p.TimeOut)
+		err = rows.Scan(
+			&p.Piece.Band.BandId,
+			&p.Piece.Band.BandName,
+			&p.Piece.Piece.Title,
+			&p.Piece.Piece.Composer,
+			&p.Piece.Piece.Arranger,
+			&p.Piece.Piece.Notes,
+			&p.Piece.PieceId,
+			&p.OutId,
+			&p.TimeIn,
+			&p.TimeOut)
 		if err == nil {
 			w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 			w.WriteHeader(http.StatusOK)
