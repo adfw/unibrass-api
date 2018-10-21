@@ -95,7 +95,7 @@ func PieceAdd(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-	query = `INSERT INTO pieces 
+	query := `INSERT INTO pieces 
 		(bandid, title, composer, arranger, publisher, year, notes, dateadded)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, NOW())`
 	_, dberr := database.DB.Query(
@@ -119,7 +119,7 @@ func PieceAdd(w http.ResponseWriter, r *http.Request) {
 func OutView(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	outId := vars["outId"]
-	query = `SELECT bands.bandid,
+	query := `SELECT bands.bandid,
 		bands.name,
 		title,
 		composer,
